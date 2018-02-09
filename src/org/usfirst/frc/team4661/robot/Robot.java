@@ -5,9 +5,11 @@ import org.usfirst.frc.team4661.robot.subsystems.Climber;
 import org.usfirst.frc.team4661.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4661.robot.subsystems.Gripper;
 import org.usfirst.frc.team4661.robot.subsystems.Lift;
+import org.usfirst.frc.team4661.robot.subsystems.Vision;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Talon;
@@ -27,6 +29,8 @@ public class Robot extends IterativeRobot {
 	public static Gripper gripper;
 	public static Lift lift;
 	public static DriveTrain drive;
+	public static Vision vision;
+	public static CameraServer cam;
 	public static OI oi;
 
 	/**
@@ -36,7 +40,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		System.out.println("init");
-
+		vision = new Vision(CameraServer.getInstance().startAutomaticCapture());
+		
 		TalonSRX liftTalon = new TalonSRX(RobotMap.LIFT_TALON_PORT);
 		DigitalInput liftMax = new DigitalInput(RobotMap.LIFT_MAX_LIMIT);
 		DigitalInput liftMin = new DigitalInput(RobotMap.LIFT_MIN_LIMIT);
