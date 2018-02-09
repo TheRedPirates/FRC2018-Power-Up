@@ -2,8 +2,10 @@ package org.usfirst.frc.team4661.robot.drive.commands;
 
 import org.usfirst.frc.team4661.robot.Consts;
 import org.usfirst.frc.team4661.robot.Robot;
+import org.usfirst.frc.team4661.robot.StringConsts;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -22,10 +24,10 @@ public class TankDriveByJoystick extends Command {
 	protected void execute() {
 		double leftSpeed = Robot.oi.getLeftY();
 		double rightSpeed = Robot.oi.getRightY();
-		if (Math.abs(leftSpeed) < Consts.LIMIT) {
+		if (Math.abs(leftSpeed) < SmartDashboard.getNumber(StringConsts.LIMIT, 0)) {
 			leftSpeed = 0;
 		}
-		if (Math.abs(rightSpeed) < Consts.LIMIT) {
+		if (Math.abs(rightSpeed) < SmartDashboard.getNumber(StringConsts.LIMIT, 0)) {
 			rightSpeed = 0;
 		}
 

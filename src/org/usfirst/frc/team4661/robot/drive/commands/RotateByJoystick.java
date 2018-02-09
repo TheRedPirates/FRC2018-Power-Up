@@ -2,8 +2,10 @@ package org.usfirst.frc.team4661.robot.drive.commands;
 
 import org.usfirst.frc.team4661.robot.Consts;
 import org.usfirst.frc.team4661.robot.Robot;
+import org.usfirst.frc.team4661.robot.StringConsts;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RotateByJoystick extends Command {
 
@@ -20,7 +22,7 @@ public class RotateByJoystick extends Command {
 	protected void execute() {
 		double speedValue = Robot.oi.getRightX();
 
-		if (Math.abs(speedValue) < Consts.LIMIT) {
+		if (Math.abs(speedValue) < SmartDashboard.getNumber(StringConsts.LIMIT, 0)) {
 			speedValue = 0;
 		}
 

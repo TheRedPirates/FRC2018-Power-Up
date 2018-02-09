@@ -2,8 +2,10 @@ package org.usfirst.frc.team4661.robot.drive.commands;
 
 import org.usfirst.frc.team4661.robot.Consts;
 import org.usfirst.frc.team4661.robot.Robot;
+import org.usfirst.frc.team4661.robot.StringConsts;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -23,7 +25,7 @@ public class DriveStraightByJoystick extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		double speedValue = Robot.oi.getRightY();
-		if (Math.abs(speedValue) < Consts.LIMIT) {
+		if (Math.abs(speedValue) < SmartDashboard.getNumber(StringConsts.LIMIT, 0)) {
 			speedValue = 0;
 		}
 

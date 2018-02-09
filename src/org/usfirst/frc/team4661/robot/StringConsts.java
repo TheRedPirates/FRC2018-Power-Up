@@ -9,6 +9,7 @@ public class StringConsts {
 	public static final String SLOWDOWN = "slowdown";
 	public static final String LEFT_ROTATE_SPEED = "left_rotate_speed";
 	public static final String RIGHT_ROTATE_SPEED = "right_rotate_speed";
+	public static final String LIMIT = "limit";
 	//Buttons
 	public static final String CLIMB_UP_BUTTON = "climb_up_button";
 	public static final String CLIMB_DOWN_BUTTON = "climb_up_button";

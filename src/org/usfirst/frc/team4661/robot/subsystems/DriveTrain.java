@@ -17,6 +17,9 @@ public class DriveTrain extends Subsystem {
 		if(SmartDashboard.containsKey(StringConsts.DRIVETRAIN_LEFT_CORRECTION)) {
 			SmartDashboard.putNumber(StringConsts.DRIVETRAIN_LEFT_CORRECTION, 1);
 		}
+		if(SmartDashboard.containsKey(StringConsts.LIMIT)) {
+			SmartDashboard.putNumber(StringConsts.LIMIT, 1);
+		}
 	}
 
 	public void tank(double leftSpeed, double rightSpeed) {
