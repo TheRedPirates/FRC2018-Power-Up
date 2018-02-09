@@ -1,0 +1,5 @@
+[Bb]in/*
+[Dd]ist/*
+[Bb]uild/*
+.classpath
+.project
