@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4661.robot.drive.commands;
 
-import org.usfirst.frc.team4661.robot.Consts;
 import org.usfirst.frc.team4661.robot.Robot;
 import org.usfirst.frc.team4661.robot.StringConsts;
 
@@ -11,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class DriveStraightByJoystick extends Command {
-	double leftAdditionalSpeed, rightAdditionalSpeed;
 
 	public DriveStraightByJoystick() {
 		requires(Robot.drive);

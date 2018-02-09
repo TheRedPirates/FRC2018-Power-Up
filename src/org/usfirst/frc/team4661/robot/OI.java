@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4661.robot;
 
-import org.usfirst.frc.team4661.robot.commands.Move;
 import org.usfirst.frc.team4661.robot.drive.commands.DriveStraightByJoystick;
 import org.usfirst.frc.team4661.robot.drive.commands.RotateByJoystick;
+import org.usfirst.frc.team4661.robot.inoutsystems.commands.Move;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -13,6 +13,8 @@ public class OI {
 	Joystick rightJoystick;
 
 	public OI() {
+		leftJoystick = new Joystick(RobotMap.LEFT_JOYSTICK_PORT);
+		rightJoystick = new Joystick(RobotMap.RIGHT_JOYSTICK_PORT);
 		if (SmartDashboard.containsKey(StringConsts.CLIMB_UP_BUTTON)) {
 			SmartDashboard.putNumber(StringConsts.CLIMB_UP_BUTTON, 1);
 		}
@@ -47,27 +49,27 @@ public class OI {
 		
 		JoystickButton liftUp = new JoystickButton(leftJoystick,
 				(int) SmartDashboard.getNumber(StringConsts.LIFT_UP_BUTTON, 1));
-		liftUp.whileHeld(new Move(Robot.lift, (short) 1));
+		liftUp.whileHeld(new Move(Robot.lift,99, (short) 1));
 
 		JoystickButton liftDown = new JoystickButton(leftJoystick,
 				(int) SmartDashboard.getNumber(StringConsts.LIFT_DOWN_BUTTON, 1));
-		liftDown.whileHeld(new Move(Robot.lift, (short) -1));
+		liftDown.whileHeld(new Move(Robot.lift,99, (short) -1));
 
 		JoystickButton climbUp = new JoystickButton(leftJoystick,
 				(int) SmartDashboard.getNumber(StringConsts.CLIMB_UP_BUTTON, 1));
-		climbUp.whileHeld(new Move(Robot.climber, (short) 1));
+		climbUp.whileHeld(new Move(Robot.climber,99, (short) 1));
 
 		JoystickButton climbDown = new JoystickButton(leftJoystick,
 				(int) SmartDashboard.getNumber(StringConsts.CLIMB_DOWN_BUTTON, 1));
-		climbDown.whileHeld(new Move(Robot.climber, (short) -1));
+		climbDown.whileHeld(new Move(Robot.climber,99, (short) -1));
 
 		JoystickButton closeGrip = new JoystickButton(leftJoystick,
 				(int) SmartDashboard.getNumber(StringConsts.GRIP_CLOSE_BUTTON, 1));
-		closeGrip.whileHeld(new Move(Robot.climber, (short) 1));
+		closeGrip.whileHeld(new Move(Robot.climber,99, (short) 1));
 
 		JoystickButton openGrip = new JoystickButton(leftJoystick,
 				(int) SmartDashboard.getNumber(StringConsts.GRIP_OPEN_BUTTON, 1));
-		openGrip.whileHeld(new Move(Robot.climber, (short) -1));
+		openGrip.whileHeld(new Move(Robot.climber,99, (short) -1));
 
 	}
 

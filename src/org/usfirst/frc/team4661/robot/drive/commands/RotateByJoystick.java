@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4661.robot.drive.commands;
 
-import org.usfirst.frc.team4661.robot.Consts;
 import org.usfirst.frc.team4661.robot.Robot;
 import org.usfirst.frc.team4661.robot.StringConsts;
 

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4661.robot.commands;
+package org.usfirst.frc.team4661.robot.inoutsystems.commands;
 
 import org.usfirst.frc.team4661.robot.StringConsts;
 import org.usfirst.frc.team4661.robot.subsystems.InOutSystem;
@@ -9,9 +9,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Move extends Command {
 	InOutSystem inOutSystem;
 	short direction;
-	public Move(InOutSystem inOutSystem, short direction) {
+	double timer;
+	public Move(InOutSystem inOutSystem,double timer, short direction) {
 		this.inOutSystem = inOutSystem;
 		this.direction = direction;
+		this.timer = timer;
 		requires(inOutSystem);
 		if (SmartDashboard.containsKey(StringConsts.SYSTEM_SPEED)) {
 			SmartDashboard.putNumber(StringConsts.SYSTEM_SPEED, 0.5);
@@ -24,7 +26,6 @@ public class Move extends Command {
 			SmartDashboard.putNumber(StringConsts.SYSTEM_SPEED, 0.5);
 		}
 		if (!inOutSystem.hasInLimit()) {
-			double timer = 0;
 			setTimeout(timer);
 		}
 	}

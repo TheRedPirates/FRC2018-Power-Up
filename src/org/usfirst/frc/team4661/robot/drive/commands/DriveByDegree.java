@@ -1,44 +1,38 @@
 package org.usfirst.frc.team4661.robot.drive.commands;
 
 import org.usfirst.frc.team4661.robot.Robot;
-import org.usfirst.frc.team4661.robot.StringConsts;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
- */
-public class TankDriveByJoystick extends Command {
+public class DriveByDegree extends Command {
+	double timer;
+	double speed;
+	double degreeCorrection;
+	short direction;
 
-	public TankDriveByJoystick() {
+	public DriveByDegree(double timer, double speed, double degreeCorrection, short direction) {
+		this.timer = timer;
+		this.speed = speed;
+		this.degreeCorrection = degreeCorrection;
+		this.direction = direction;
 		requires(Robot.drive);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		setTimeout(timer);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double leftSpeed = Robot.oi.getLeftY();
-		double rightSpeed = Robot.oi.getRightY();
-		if (Math.abs(leftSpeed) < SmartDashboard.getNumber(StringConsts.LIMIT, 0)) {
-			leftSpeed = 0;
-		}
-		if (Math.abs(rightSpeed) < SmartDashboard.getNumber(StringConsts.LIMIT, 0)) {
-			rightSpeed = 0;
-		}
-
-		rightSpeed *= Math.abs(rightSpeed);
-		leftSpeed *= Math.abs(leftSpeed);
-
-		Robot.drive.tank(leftSpeed, rightSpeed);
+		//The Usage of Degree May Only be Implemnted Once A Gyro Is Connected
+		speed *= direction;
+		Robot.drive.tank(speed, speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return isTimedOut();
 	}
 
 	// Called once after isFinished returns true
