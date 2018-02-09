@@ -1,6 +1,17 @@
 
 package org.usfirst.frc.team4661.robot;
 
+import org.usfirst.frc.team4661.robot.command.groups.Left_Autonomous_Left;
+import org.usfirst.frc.team4661.robot.command.groups.Left_Autonomous_Left_Block;
+import org.usfirst.frc.team4661.robot.command.groups.Middle_Autonomous_Left;
+import org.usfirst.frc.team4661.robot.command.groups.Middle_Autonomous_Left_Block;
+import org.usfirst.frc.team4661.robot.command.groups.Middle_Autonomous_Right;
+import org.usfirst.frc.team4661.robot.command.groups.Middle_Autonomous_Right_Block;
+import org.usfirst.frc.team4661.robot.command.groups.Right_Autonomous_Right;
+import org.usfirst.frc.team4661.robot.command.groups.Right_Autonomous_Right_Block;
+import org.usfirst.frc.team4661.robot.drive.commands.DriveByDegree;
+import org.usfirst.frc.team4661.robot.drive.commands.RotateAutomaticaly;
+import org.usfirst.frc.team4661.robot.inoutsystems.commands.Move;
 import org.usfirst.frc.team4661.robot.subsystems.Climber;
 import org.usfirst.frc.team4661.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4661.robot.subsystems.Gripper;
@@ -18,6 +29,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -43,9 +55,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		if (SmartDashboard.containsKey(StringConsts.DRIVETRAIN_LIMIT)) {
+			SmartDashboard.putNumber(StringConsts.DRIVETRAIN_LIMIT, 1);
+		}
+		double speed = SmartDashboard.getNumber(StringConsts.DRIVETRAIN_LIMIT, 1);
 		System.out.println("init");
 		vision = new Vision(CameraServer.getInstance().startAutomaticCapture());
-		
+
 		TalonSRX liftTalon = new TalonSRX(RobotMap.LIFT_TALON_PORT);
 		DigitalInput liftMax = new DigitalInput(RobotMap.LIFT_MAX_LIMIT);
 		DigitalInput liftMin = new DigitalInput(RobotMap.LIFT_MIN_LIMIT);
@@ -72,6 +88,56 @@ public class Robot extends IterativeRobot {
 		drive = new DriveTrain(left, right);
 
 		oi = new OI();
+		chooser = new SendableChooser<>();
+		DriveByDegree driveByDegree = new DriveByDegree(1, speed, 0, (short) 1);
+		RotateAutomaticaly rotateRightAutomaticaly = new RotateAutomaticaly(speed, 90, (short) 1);
+		RotateAutomaticaly rotateLeftAutomaticaly = new RotateAutomaticaly(speed, 90, (short) -1);
+		Move liftUp = new Move(lift, 1, (short) 1);
+		Move liftDown = new Move(lift, 1, (short) 1);
+		Move gripIn = new Move(gripper, Consts.COMPLETE_OPEN_TIME, (short) 1);
+		Move gripOut = new Move(gripper, Consts.COMPLETE_OPEN_TIME, (short) -1);
+		Left_Autonomous_Left_Block left_Autonomous_Left_Block = new Left_Autonomous_Left_Block();
+		Left_Autonomous_Left left_Autonomous_Left = new Left_Autonomous_Left();
+		Middle_Autonomous_Left_Block middle_Autonomous_Left_Block = new Middle_Autonomous_Left_Block();
+		Middle_Autonomous_Left middle_Autonomous_Left = new Middle_Autonomous_Left();
+		Middle_Autonomous_Right_Block middle_Autonomous_Right_Block = new Middle_Autonomous_Right_Block();
+		Middle_Autonomous_Right middle_Autonomous_Right = new Middle_Autonomous_Right();
+		Right_Autonomous_Right_Block right_Autonomous_Right_Block = new Right_Autonomous_Right_Block();
+		Right_Autonomous_Right right_Autonomous_Right = new Right_Autonomous_Right();
+
+		chooser.addDefault("by constant speed", driveByDegree);
+		chooser.addObject("rotateRight", rotateRightAutomaticaly);
+		chooser.addObject("rotateLeft", rotateLeftAutomaticaly);
+		chooser.addObject("liftUp", liftUp);
+		chooser.addObject("liftDown", liftDown);
+		chooser.addObject("gripIn", gripIn);
+		chooser.addObject("gripOut", gripOut);
+		chooser.addObject("left_Autonomous_Left_Block", left_Autonomous_Left_Block);
+		chooser.addObject("middle_Autonomous_Left", middle_Autonomous_Left);
+		chooser.addObject("middle_Autonomous_Left_Block", middle_Autonomous_Left_Block);
+		chooser.addObject("middle_Autonomous_Left", middle_Autonomous_Left);
+		chooser.addObject("middle_Autonomous_Right_Block", middle_Autonomous_Right_Block);
+		chooser.addObject("middle_Autonomous_Right", middle_Autonomous_Right);
+		chooser.addObject("right_Autonomous_Right_Block", right_Autonomous_Right_Block);
+		chooser.addObject("right_Autonomous_Right", right_Autonomous_Right);
+
+		SmartDashboard.putData(driveByDegree);
+		SmartDashboard.putData(rotateRightAutomaticaly);
+		SmartDashboard.putData(rotateLeftAutomaticaly);
+		SmartDashboard.putData(liftUp);
+		SmartDashboard.putData(liftDown);
+		SmartDashboard.putData(gripIn);
+		SmartDashboard.putData(gripOut);
+		SmartDashboard.putData(left_Autonomous_Left_Block);
+		SmartDashboard.putData(left_Autonomous_Left);
+		SmartDashboard.putData(middle_Autonomous_Left_Block);
+		SmartDashboard.putData(middle_Autonomous_Left);
+		SmartDashboard.putData(middle_Autonomous_Right_Block);
+		SmartDashboard.putData(middle_Autonomous_Right);
+		SmartDashboard.putData(right_Autonomous_Right_Block);
+		SmartDashboard.putData(right_Autonomous_Right);
+		SmartDashboard.putData("Auto mode", chooser);
+
 	}
 
 	/**

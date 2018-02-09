@@ -17,6 +17,9 @@ public class DriveTrain extends Subsystem {
 		if(SmartDashboard.containsKey(StringConsts.DRIVETRAIN_LEFT_CORRECTION)) {
 			SmartDashboard.putNumber(StringConsts.DRIVETRAIN_LEFT_CORRECTION, 1);
 		}
+		if(SmartDashboard.containsKey(StringConsts.DRIVETRAIN_LIMIT)) {
+			SmartDashboard.putNumber(StringConsts.DRIVETRAIN_LIMIT, 1);
+		}
 		if(SmartDashboard.containsKey(StringConsts.LIMIT)) {
 			SmartDashboard.putNumber(StringConsts.LIMIT, 1);
 		}
@@ -26,8 +29,13 @@ public class DriveTrain extends Subsystem {
 		if(SmartDashboard.containsKey(StringConsts.DRIVETRAIN_LEFT_CORRECTION)) {
 			SmartDashboard.putNumber(StringConsts.DRIVETRAIN_LEFT_CORRECTION, 1);
 		}
-		double factor = SmartDashboard.getNumber(StringConsts.DRIVETRAIN_LEFT_CORRECTION, 1);
-		leftSpeed *= factor;
+		if(SmartDashboard.containsKey(StringConsts.DRIVETRAIN_LIMIT)) {
+			SmartDashboard.putNumber(StringConsts.DRIVETRAIN_LIMIT, 1);
+		}
+		double correction = SmartDashboard.getNumber(StringConsts.DRIVETRAIN_LEFT_CORRECTION, 1);
+		double factor = SmartDashboard.getNumber(StringConsts.DRIVETRAIN_LIMIT, 1);
+		leftSpeed *= correction;
+		leftSpeed *= factor; rightSpeed *= factor;
 		left.set(leftSpeed);
 		right.set(-rightSpeed);
 	}
